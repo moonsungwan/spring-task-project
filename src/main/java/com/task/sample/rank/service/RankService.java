@@ -1,5 +1,6 @@
 package com.task.sample.rank.service;
 
+import com.task.sample.common.redis.RedisCacheKey;
 import com.task.sample.common.redis.RedisUtil;
 import com.task.sample.rank.dto.RankRequest;
 import com.task.sample.rank.dto.RankResponse;
@@ -18,7 +19,7 @@ public class RankService {
     private final RedisUtil redisUtil;
 
     public List<RankResponse> getRank() {
-        List<RankResponse> topKeywords = Objects.requireNonNull(redisUtil.reverseRangeWithScores("RANKS"))
+        List<RankResponse> topKeywords = Objects.requireNonNull(redisUtil.reverseRangeWithScores(RedisCacheKey.RANKS))
                                                 .stream()
                                                 .map(it -> convert(it.getValue(), it.getScore()))
                                                 .collect(Collectors.toList());
@@ -27,7 +28,7 @@ public class RankService {
     }
 
     public String increaseKeyword(RankRequest rankRequest) {
-        redisUtil.incrementScore("RANKS", rankRequest.getKeyword());
+        redisUtil.incrementScore(RedisCacheKey.RANKS, rankRequest.getKeyword());
         return rankRequest.getKeyword();
     }
 
