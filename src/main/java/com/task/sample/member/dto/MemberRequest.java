@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class MemberRequest {
 
     private String email;
+
     private String password;
 
     public Member toMember(PasswordEncoder passwordEncoder) {

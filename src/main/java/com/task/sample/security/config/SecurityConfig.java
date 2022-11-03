@@ -63,6 +63,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers(AUTH_WHITELIST).permitAll()
                 .antMatchers("/api/vi/auth/**").permitAll()
+                .antMatchers("/api/vi/rank/**").permitAll()
                 .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
 
                 .and()

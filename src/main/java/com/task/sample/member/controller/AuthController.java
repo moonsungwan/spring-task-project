@@ -22,7 +22,6 @@ public class AuthController {
 
     private final AuthService authService;
 
-
     @ApiOperation(value = "회원가입")
     @PostMapping("/signup")
     public ApiResponseEntity<MemberResponse> signup(@RequestBody MemberRequest memberRequest) {
