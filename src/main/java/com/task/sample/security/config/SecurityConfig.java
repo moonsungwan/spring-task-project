@@ -1,5 +1,8 @@
-package com.task.sample.security;
+package com.task.sample.security.config;
 
+import com.task.sample.security.jwt.JwtAccessDeniedHandler;
+import com.task.sample.security.jwt.JwtAuthenticationEntryPoint;
+import com.task.sample.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +12,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -19,6 +21,8 @@ public class SecurityConfig {
     private final JwtTokenProvider jwtTokenProvider;
 
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
+    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
     private static final String[] AUTH_WHITELIST = {
             // -- Swagger UI v2
@@ -43,17 +47,26 @@ public class SecurityConfig {
                 .csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .accessDeniedHandler(jwtAccessDeniedHandler)
+
+                // h2-console
+                .and()
+                .headers()
+                .frameOptions()
+                .sameOrigin()
 
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and()
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers(AUTH_WHITELIST).permitAll()
-                .antMatchers("/api/vi/members/login").permitAll()
-                .antMatchers("/members/test").hasRole("USER")
-                .anyRequest().authenticated()
+                .antMatchers("/api/vi/auth/**").permitAll()
+                .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
+
+                .and()
+                .apply(new JwtSecurityConfig(jwtTokenProvider));
                 ;
 
         return HttpSecurity.build();
@@ -63,4 +76,5 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
+
 }

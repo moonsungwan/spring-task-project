@@ -1,6 +1,5 @@
 package com.task.sample.common.exception;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.task.sample.common.message.MessageCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,16 +18,16 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(value = { DataIntegrityViolationException.class})
-    protected ResponseEntity<ErrorResponse> handleDataException() {
-        log.error("handleDataException throw DataIntegrityViolationException : {}", MessageCode.BUSINESS_EXCEPTION);
-        return ErrorResponse.toResponseEntity(MessageCode.BUSINESS_EXCEPTION);
-    }
-
     @ExceptionHandler(value = { CustomException.class })
     protected ResponseEntity<ErrorResponse> handleCustomException(CustomException e) {
         log.error("handleCustomException throw CustomException : {}", e.getMessageCode());
         return ErrorResponse.toResponseEntity(e.getMessageCode());
+    }
+
+    @ExceptionHandler(value = { DataIntegrityViolationException.class})
+    protected ResponseEntity<ErrorResponse> handleDataException() {
+        log.error("handleDataException throw DataIntegrityViolationException : {}", MessageCode.BUSINESS_EXCEPTION);
+        return ErrorResponse.toResponseEntity(MessageCode.BUSINESS_EXCEPTION);
     }
 
     @ExceptionHandler(value = { MethodArgumentNotValidException.class })

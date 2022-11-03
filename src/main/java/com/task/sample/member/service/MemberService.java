@@ -1,13 +1,11 @@
 package com.task.sample.member.service;
 
-import com.task.sample.member.MemberLoginRequest;
+import com.task.sample.common.exception.CustomException;
+import com.task.sample.common.message.MessageCode;
+import com.task.sample.security.util.SecurityUtil;
+import com.task.sample.member.dto.MemberResponse;
 import com.task.sample.member.repository.MemberRepository;
-import com.task.sample.security.JwtTokenProvider;
-import com.task.sample.security.TokenInfo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,17 +15,19 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
-    private final JwtTokenProvider jwtTokenProvider;
 
     @Transactional(readOnly = true)
-    public TokenInfo login(MemberLoginRequest memberLoginRequest) {
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(memberLoginRequest.getMemberId(), memberLoginRequest.getPassword());
+    public MemberResponse getMemberInfo(String email) {
+        return memberRepository.findByEmail(email)
+                               .map(MemberResponse::of)
+                               .orElseThrow(() -> new CustomException(MessageCode.INVALID_MEMBER));
+    }
 
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-
-        TokenInfo tokenInfo = jwtTokenProvider.generateToken(authentication);
-
-        return tokenInfo;
+    // 현재 SecurityContext 에 있는 유저 정보 가져오기
+    @Transactional(readOnly = true)
+    public MemberResponse getMyInfo() {
+        return memberRepository.findById(SecurityUtil.getCurrentMemberId())
+                               .map(MemberResponse::of)
+                               .orElseThrow(() -> new CustomException(MessageCode.INVALID_MEMBER));
     }
 }

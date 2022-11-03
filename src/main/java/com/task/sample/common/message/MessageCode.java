@@ -17,16 +17,17 @@ public enum MessageCode {
     NO_CONTENT(HttpStatus.NO_CONTENT, "데이터가 없습니다."),
 
     FAILED(HttpStatus.BAD_REQUEST, "실패하였습니다."),
+    ALREADY_LOGOUT(HttpStatus.BAD_REQUEST, "로그아웃 된 사용자입니다."),
 
-    INVALID_ACCOUNT(HttpStatus.UNAUTHORIZED, "잘못된 계정입니다."),
+    INVALID_MEMBER(HttpStatus.UNAUTHORIZED, "잘못된 계정정보입니다."),
     INVALID_AUTH_TOKEN(HttpStatus.UNAUTHORIZED, "토큰 정보가 유효하지 않습니다."),
+    INVALID_AUTH_REFRESH_TOKEN(HttpStatus.UNAUTHORIZED, "리프레쉬 토큰 정보가 유효하지 않습니다."),
     INVALID_PASSWORD(HttpStatus.UNAUTHORIZED, "잘못된 비밀번호입니다."),
 
     BUSINESS_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "업무로직에서 에러가 발생했습니다."),
 
     /* 409 CONFLICT : Resource 의 현재 상태와 충돌. 보통 중복된 데이터 존재 */
-    EXISTING_ACCOUNT(HttpStatus.CONFLICT, "이미 등록된 계정입니다."),
-    EXISTING_BOOKMARK(HttpStatus.CONFLICT, "이미 등록된 북마크입니다."),
+    EXISTING_MEMBER(HttpStatus.CONFLICT, "이미 등록된 계정입니다.")
     ;
 
     private final HttpStatus status;
