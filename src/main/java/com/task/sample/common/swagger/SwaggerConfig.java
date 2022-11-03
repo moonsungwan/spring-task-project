@@ -1,4 +1,4 @@
-package com.task.sample.common.config;
+package com.task.sample.common.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -58,7 +58,7 @@ public class SwaggerConfig {
     }
 
     private ApiKey apiKey() {
-        return new ApiKey("Authorization", "Authorization", "header");
+        return new ApiKey("Authorization", "Bearer", "header");
     }
 
 }

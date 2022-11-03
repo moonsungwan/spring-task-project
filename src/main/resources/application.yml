@@ -1,4 +1,9 @@
 spring:
+  profiles:
+    active: local
+  cache:
+    type: redis
+
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -24,6 +29,10 @@ spring:
       settings:
         web-allow-others: true
 # http://localhost:8080/h2-console
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
 
 logging:
   level:
