@@ -1,7 +1,7 @@
 package com.task.sample.rank.service;
 
-import com.task.sample.common.redis.RedisCacheKey;
-import com.task.sample.common.redis.RedisUtil;
+import com.task.sample.common.redis.cache.RedisCacheKey;
+import com.task.sample.common.redis.cache.RedisUtil;
 import com.task.sample.rank.dto.RankRequest;
 import com.task.sample.rank.dto.RankResponse;
 import lombok.RequiredArgsConstructor;

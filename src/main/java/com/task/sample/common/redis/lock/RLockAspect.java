@@ -65,7 +65,7 @@ public class RLockAspect {
         if (ObjectUtils.isEmpty(joinPoint.getArgs())) {
             throw new IllegalArgumentException("적용하려는 메서드의 인자가 존재하지 않습니다.");
         }
-        LockCase lockCase = distributedLock.lockCase();
+        RLockCase lockCase = distributedLock.lockCase();
         return lockCase.name() + "_" + lockCase.getKeyType().getKey();
     }
 

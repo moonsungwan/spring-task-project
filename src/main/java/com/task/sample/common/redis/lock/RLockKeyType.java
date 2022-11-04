@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.function.Function;
 
 @RequiredArgsConstructor
-public enum LockKeyType {
+public enum RLockKeyType {
 
     AUTHORIZATION_HEADER(request -> {
         return String.valueOf(SecurityUtil.getCurrentMemberId());

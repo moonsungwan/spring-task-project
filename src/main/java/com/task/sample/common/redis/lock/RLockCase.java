@@ -4,11 +4,11 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public enum LockCase {
+public enum RLockCase {
 
-    MEMBER_POINT(LockKeyType.AUTHORIZATION_HEADER);
+    MEMBER_POINT(RLockKeyType.AUTHORIZATION_HEADER);
 
     @Getter
-    private final LockKeyType keyType;
+    private final RLockKeyType keyType;
 
 }
