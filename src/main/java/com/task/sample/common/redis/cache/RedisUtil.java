@@ -1,4 +1,4 @@
-package com.task.sample.common.redis;
+package com.task.sample.common.redis.cache;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,4 +38,5 @@ public class RedisUtil {
         ZSetOperations<String, String> ZSetOperations = redisTemplate.opsForZSet();
         return ZSetOperations.reverseRangeWithScores(key, 0, 10);
     }
+
 }

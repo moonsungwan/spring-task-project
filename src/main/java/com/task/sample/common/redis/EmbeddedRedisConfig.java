@@ -9,6 +9,7 @@ import redis.embedded.RedisServer;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 @Slf4j
 @Profile("local")
@@ -21,13 +22,16 @@ public class EmbeddedRedisConfig {
     private RedisServer redisServer;
 
     @PostConstruct
-    public void redisServer() throws IOException {
-        redisServer = new RedisServer(redisPort);
+    public void startRedis() throws IOException, URISyntaxException {
+        redisServer = RedisServer.builder()
+                                 .port(redisPort)
+                                 .setting("maxmemory 128M") //maxheap 128M
+                                 .build();
         redisServer.start();
     }
 
     @PreDestroy
-    public void stopRedis() {
+    public void stopRedis() throws InterruptedException {
         if (redisServer != null) {
             redisServer.stop();
         }
