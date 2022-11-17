@@ -4,10 +4,12 @@ import java.util.List;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
-public class TeamRequest {
+public class TeamResponse {
 
     private String name;
 

@@ -1,11 +1,18 @@
 package com.task.sample.team.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -15,20 +22,24 @@ public class TeamMember {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "member_id")
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
-    private Integer age;
-
     @ManyToOne
-    @JoinColumn(name = "TEAM_ID")
+    @JoinColumn(name = "team_id")
     private Team team;
 
     @Builder
-    public TeamMember(String name, Integer age) {
+    public TeamMember(String name) {
         this.name = name;
-        this.age = age;
     }
-
+    
+    public void changeTeam(Team team) {
+        this.team = team;
+        team.getTeamMembers().add(this);
+    }
+    
 }
