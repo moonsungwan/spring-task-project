@@ -1,6 +1,6 @@
 package com.task.sample.security.jwt;
 
-import com.task.sample.member.dto.JwtTokenResponse;
+import com.task.sample.auth.dto.JwtTokenResponse;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

@@ -1,7 +1,7 @@
 package com.task.sample.member.dto;
 
 import com.task.sample.member.entity.Member;
-import com.task.sample.member.types.Authority;
+import com.task.sample.auth.type.Authority;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,14 +1,14 @@
-package com.task.sample.member.service;
+package com.task.sample.auth.service;
 
 import com.task.sample.common.exception.CustomException;
 import com.task.sample.common.message.MessageCode;
-import com.task.sample.member.dto.JwtTokenRequest;
+import com.task.sample.auth.dto.JwtTokenRequest;
 import com.task.sample.member.dto.MemberRequest;
 import com.task.sample.member.dto.MemberResponse;
 import com.task.sample.member.entity.Member;
 import com.task.sample.member.repository.MemberRepository;
 import com.task.sample.security.jwt.JwtTokenProvider;
-import com.task.sample.member.dto.JwtTokenResponse;
+import com.task.sample.auth.dto.JwtTokenResponse;
 import com.task.sample.security.entity.RefreshToken;
 import com.task.sample.security.repository.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;

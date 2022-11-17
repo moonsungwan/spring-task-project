@@ -1,4 +1,4 @@
-package com.task.sample.member.dto;
+package com.task.sample.auth.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

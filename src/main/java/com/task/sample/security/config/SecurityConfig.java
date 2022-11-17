@@ -65,6 +65,7 @@ public class SecurityConfig {
                 .antMatchers("/api/v1/auth/**").permitAll()
                 .antMatchers("/api/v1/rank/**").permitAll()
                 .antMatchers("/api/v1/chat/**").permitAll()
+                .antMatchers("/api/v1/team/**").permitAll()
                 .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
 
                 .and()

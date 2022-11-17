@@ -1,6 +1,7 @@
 package com.task.sample.member.entity;
 
-import com.task.sample.member.types.Authority;
+import com.task.sample.auth.type.Authority;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "MEMBER")
 @Entity
 public class Member {
